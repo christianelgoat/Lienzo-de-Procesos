@@ -105,59 +105,10 @@ const PROCESSES = [
   { id: 40, name: 'Validar el alcance' },
 ];
 
-const INITIAL_STATE: Record<number, { row: string; col: string }> = {
-  19: { row: 'Gobernanza', col: 'Inicio' },
-  15: { row: 'Gobernanza', col: 'Planificación' },
-  31: { row: 'Gobernanza', col: 'Planificación' },
-  21: { row: 'Gobernanza', col: 'Ejecución' },
-  22: { row: 'Gobernanza', col: 'Monitoreo y control' },
-  9: { row: 'Gobernanza', col: 'Cierre' },
-
-  2: { row: 'Alcance', col: 'Inicio' },
-  40: { row: 'Alcance', col: 'Inicio' },
-  3: { row: 'Alcance', col: 'Planificación' },
-  10: { row: 'Alcance', col: 'Planificación' },
-  12: { row: 'Alcance', col: 'Planificación' },
-  30: { row: 'Alcance', col: 'Planificación' },
-  20: { row: 'Alcance', col: 'Ejecución' },
-  26: { row: 'Alcance', col: 'Monitoreo y control' },
-  29: { row: 'Alcance', col: 'Monitoreo y control' },
-
-  5: { row: 'Cronograma', col: 'Inicio' },
-  13: { row: 'Cronograma', col: 'Planificación' },
-  36: { row: 'Cronograma', col: 'Planificación' },
-  25: { row: 'Cronograma', col: 'Monitoreo y control' },
-
-  4: { row: 'Finanzas', col: 'Inicio' },
-  6: { row: 'Finanzas', col: 'Planificación' },
-  37: { row: 'Finanzas', col: 'Planificación' },
-  27: { row: 'Finanzas', col: 'Monitoreo y control' },
-
-  16: { row: 'Interesados', col: 'Inicio' },
-  32: { row: 'Interesados', col: 'Planificación' },
-  14: { row: 'Interesados', col: 'Ejecución' },
-  23: { row: 'Interesados', col: 'Monitoreo y control' },
-
-  1: { row: 'Recursos', col: 'Inicio' },
-  7: { row: 'Recursos', col: 'Planificación' },
-  11: { row: 'Recursos', col: 'Planificación' },
-  33: { row: 'Recursos', col: 'Planificación' },
-  34: { row: 'Recursos', col: 'Planificación' },
-  35: { row: 'Recursos', col: 'Planificación' },
-  28: { row: 'Recursos', col: 'Monitoreo y control' },
-
-  17: { row: 'Riesgos', col: 'Inicio' },
-  38: { row: 'Riesgos', col: 'Planificación' },
-  18: { row: 'Riesgos', col: 'Ejecución' },
-  8: { row: 'Riesgos', col: 'Monitoreo y control' },
-  24: { row: 'Riesgos', col: 'Monitoreo y control' },
-  39: { row: 'Riesgos', col: 'Monitoreo y control' },
-};
-
 export default function App() {
   const [placedProcesses, setPlacedProcesses] = useState<
     Record<number, { row: string; col: string }>
-  >(INITIAL_STATE);
+  >({});
 
   const handleAdd = (num: number, row: string, col: string) => {
     setPlacedProcesses((prev) => ({
