@@ -185,7 +185,7 @@ export default function App() {
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-              Lienzo de Procesos Interactivo
+              Lienzo de Procesos
             </h1>
             <p className="text-slate-500 mt-1">
               Coloca los números de los procesos en las celdas correspondientes.
