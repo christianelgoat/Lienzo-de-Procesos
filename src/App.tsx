@@ -181,6 +181,11 @@ export default function App() {
   };
 
   const stats = useMemo(() => {
+    let correctBoth = 0;
+    let correctAmbitoOnly = 0;
+    let correctAreaOnly = 0;
+    let correctNeither = 0;
+    
     let correctArea = 0;
     let incorrectArea = 0;
     let correctAmbito = 0;
@@ -191,18 +196,31 @@ export default function App() {
       const correct = CORRECT_MAPPING[i];
 
       if (placed) {
-        if (placed.col === correct.col) correctArea++;
+        const isRowCorrect = placed.row === correct.row;
+        const isColCorrect = placed.col === correct.col;
+
+        if (isRowCorrect && isColCorrect) correctBoth++;
+        else if (isRowCorrect && !isColCorrect) correctAmbitoOnly++;
+        else if (!isRowCorrect && isColCorrect) correctAreaOnly++;
+        else correctNeither++;
+        
+        if (isColCorrect) correctArea++;
         else incorrectArea++;
 
-        if (placed.row === correct.row) correctAmbito++;
+        if (isRowCorrect) correctAmbito++;
         else incorrectAmbito++;
       } else {
+        correctNeither++;
         incorrectArea++;
         incorrectAmbito++;
       }
     }
 
     return {
+      correctBoth,
+      correctAmbitoOnly,
+      correctAreaOnly,
+      correctNeither,
       correctArea,
       incorrectArea,
       correctAmbito,
@@ -324,6 +342,57 @@ export default function App() {
                       <td className="p-3 font-bold text-slate-800">Total</td>
                       <td className="p-3 font-bold text-slate-800">40</td>
                       <td className="p-3 font-bold text-slate-800">40</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Detailed Evaluation Table */}
+            <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+              <div className="bg-slate-800 text-white p-4">
+                <h2 className="font-semibold text-lg">Detalle de Aciertos</h2>
+              </div>
+              <div className="p-0">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                      <th className="p-3 font-medium text-slate-600">Categoría de Acierto</th>
+                      <th className="p-3 font-medium text-slate-600 text-center">Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-200">
+                    <tr>
+                      <td className="p-3 font-medium text-slate-700 flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
+                        Acertaron en ambos
+                      </td>
+                      <td className="p-3 text-center font-semibold text-lg text-emerald-600">{stats.correctBoth}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-medium text-slate-700 flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-blue-400"></span>
+                        Acertaron en ámbito de desempeño
+                      </td>
+                      <td className="p-3 text-center font-semibold text-lg text-blue-600">{stats.correctAmbitoOnly}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-medium text-slate-700 flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-amber-400"></span>
+                        Acertaron en área de enfoque
+                      </td>
+                      <td className="p-3 text-center font-semibold text-lg text-amber-600">{stats.correctAreaOnly}</td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-medium text-slate-700 flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-rose-400"></span>
+                        Acertaron en ninguno
+                      </td>
+                      <td className="p-3 text-center font-semibold text-lg text-rose-600">{stats.correctNeither}</td>
+                    </tr>
+                    <tr className="bg-slate-50">
+                      <td className="p-3 font-bold text-slate-800">Total de Procesos</td>
+                      <td className="p-3 text-center font-bold text-slate-800">40</td>
                     </tr>
                   </tbody>
                 </table>
